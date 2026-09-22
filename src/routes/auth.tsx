@@ -24,6 +24,7 @@ export const Route = createFileRoute('/auth')({
 function AuthPage() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [forgotOpen, setForgotOpen] = useState(false)
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -72,6 +73,26 @@ function AuthPage() {
     navigate({ to: '/' })
   }
 
+  async function handleForgotPassword(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = new FormData(e.currentTarget)
+    const email = String(form.get('email') ?? '')
+
+    setLoading(true)
+    const supabase = getSupabaseBrowserClient()
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/redefinir-senha`,
+    })
+    setLoading(false)
+
+    if (error) {
+      toast.error('Não foi possível enviar o link', { description: error.message })
+      return
+    }
+    toast.success('Link de redefinição enviado! Verifique seu e-mail.')
+    setForgotOpen(false)
+  }
+
   async function handleGoogle() {
     const supabase = getSupabaseBrowserClient()
     const { error } = await supabase.auth.signInWithOAuth({
@@ -99,25 +120,52 @@ function AuthPage() {
             </TabsList>
 
             <TabsContent value="login" className="mt-4">
-              <form className="flex flex-col gap-3" onSubmit={handleLogin}>
-                <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="login-email">E-mail</Label>
-                  <Input id="login-email" name="email" type="email" required autoComplete="email" />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="login-password">Senha</Label>
-                  <Input
-                    id="login-password"
-                    name="password"
-                    type="password"
-                    required
-                    autoComplete="current-password"
-                  />
-                </div>
-                <Button type="submit" disabled={loading} className="mt-1">
-                  {loading ? 'Entrando…' : 'Entrar'}
-                </Button>
-              </form>
+              {forgotOpen ? (
+                <form className="flex flex-col gap-3" onSubmit={handleForgotPassword}>
+                  <p className="text-sm text-muted-foreground">
+                    Informe seu e-mail para receber um link de redefinição de senha.
+                  </p>
+                  <div className="flex flex-col gap-1.5">
+                    <Label htmlFor="forgot-email">E-mail</Label>
+                    <Input id="forgot-email" name="email" type="email" required autoComplete="email" />
+                  </div>
+                  <Button type="submit" disabled={loading} className="mt-1">
+                    {loading ? 'Enviando…' : 'Enviar link'}
+                  </Button>
+                  <Button type="button" variant="ghost" size="sm" onClick={() => setForgotOpen(false)}>
+                    Voltar para o login
+                  </Button>
+                </form>
+              ) : (
+                <form className="flex flex-col gap-3" onSubmit={handleLogin}>
+                  <div className="flex flex-col gap-1.5">
+                    <Label htmlFor="login-email">E-mail</Label>
+                    <Input id="login-email" name="email" type="email" required autoComplete="email" />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="login-password">Senha</Label>
+                      <button
+                        type="button"
+                        onClick={() => setForgotOpen(true)}
+                        className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+                      >
+                        Esqueci minha senha
+                      </button>
+                    </div>
+                    <Input
+                      id="login-password"
+                      name="password"
+                      type="password"
+                      required
+                      autoComplete="current-password"
+                    />
+                  </div>
+                  <Button type="submit" disabled={loading} className="mt-1">
+                    {loading ? 'Entrando…' : 'Entrar'}
+                  </Button>
+                </form>
+              )}
             </TabsContent>
 
             <TabsContent value="signup" className="mt-4">

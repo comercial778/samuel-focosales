@@ -16,6 +16,7 @@ import { Route as ComprovantesRouteImport } from './routes/comprovantes'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as MetasRouteImport } from './routes/metas'
+import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as UsuariosRouteImport } from './routes/usuarios'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +54,11 @@ const MetasRoute = MetasRouteImport.update({
   path: '/metas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RedefinirSenhaRoute = RedefinirSenhaRouteImport.update({
+  id: '/redefinir-senha',
+  path: '/redefinir-senha',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UsuariosRoute = UsuariosRouteImport.update({
   id: '/usuarios',
   path: '/usuarios',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/configuracoes': typeof ConfiguracoesRoute
   '/dashboard': typeof DashboardRoute
   '/metas': typeof MetasRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/usuarios': typeof UsuariosRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/configuracoes': typeof ConfiguracoesRoute
   '/dashboard': typeof DashboardRoute
   '/metas': typeof MetasRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/usuarios': typeof UsuariosRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/configuracoes': typeof ConfiguracoesRoute
   '/dashboard': typeof DashboardRoute
   '/metas': typeof MetasRoute
+  '/redefinir-senha': typeof RedefinirSenhaRoute
   '/usuarios': typeof UsuariosRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/configuracoes'
     | '/dashboard'
     | '/metas'
+    | '/redefinir-senha'
     | '/usuarios'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/configuracoes'
     | '/dashboard'
     | '/metas'
+    | '/redefinir-senha'
     | '/usuarios'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/configuracoes'
     | '/dashboard'
     | '/metas'
+    | '/redefinir-senha'
     | '/usuarios'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   ConfiguracoesRoute: typeof ConfiguracoesRoute
   DashboardRoute: typeof DashboardRoute
   MetasRoute: typeof MetasRoute
+  RedefinirSenhaRoute: typeof RedefinirSenhaRoute
   UsuariosRoute: typeof UsuariosRoute
 }
 
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MetasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/redefinir-senha': {
+      id: '/redefinir-senha'
+      path: '/redefinir-senha'
+      fullPath: '/redefinir-senha'
+      preLoaderRoute: typeof RedefinirSenhaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/usuarios': {
       id: '/usuarios'
       path: '/usuarios'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConfiguracoesRoute: ConfiguracoesRoute,
   DashboardRoute: DashboardRoute,
   MetasRoute: MetasRoute,
+  RedefinirSenhaRoute: RedefinirSenhaRoute,
   UsuariosRoute: UsuariosRoute,
 }
 export const routeTree = rootRouteImport
