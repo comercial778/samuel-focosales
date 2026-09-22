@@ -4,7 +4,7 @@ type ThemeMode = 'light' | 'dark' | 'auto'
 
 function getInitialMode(): ThemeMode {
   if (typeof window === 'undefined') {
-    return 'auto'
+    return 'dark'
   }
 
   const stored = window.localStorage.getItem('theme')
@@ -12,7 +12,7 @@ function getInitialMode(): ThemeMode {
     return stored
   }
 
-  return 'auto'
+  return 'dark'
 }
 
 function applyThemeMode(mode: ThemeMode) {
@@ -32,7 +32,7 @@ function applyThemeMode(mode: ThemeMode) {
 }
 
 export default function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>('auto')
+  const [mode, setMode] = useState<ThemeMode>('dark')
 
   useEffect(() => {
     const initialMode = getInitialMode()
@@ -56,7 +56,7 @@ export default function ThemeToggle() {
 
   function toggleMode() {
     const nextMode: ThemeMode =
-      mode === 'light' ? 'dark' : mode === 'dark' ? 'auto' : 'light'
+      mode === 'dark' ? 'light' : mode === 'light' ? 'auto' : 'dark'
     setMode(nextMode)
     applyThemeMode(nextMode)
     window.localStorage.setItem('theme', nextMode)
@@ -64,7 +64,7 @@ export default function ThemeToggle() {
 
   const label =
     mode === 'auto'
-      ? 'Theme mode: auto (system). Click to switch to light mode.'
+      ? 'Theme mode: auto (system). Click to switch to dark mode.'
       : `Theme mode: ${mode}. Click to switch mode.`
 
   return (
@@ -73,9 +73,9 @@ export default function ThemeToggle() {
       onClick={toggleMode}
       aria-label={label}
       title={label}
-      className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] shadow-[0_8px_22px_rgba(30,90,72,0.08)] transition hover:-translate-y-0.5"
+      className="rounded-full border border-border bg-secondary px-3 py-1.5 text-sm font-semibold text-secondary-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground"
     >
-      {mode === 'auto' ? 'Auto' : mode === 'dark' ? 'Dark' : 'Light'}
+      {mode === 'auto' ? 'Auto' : mode === 'dark' ? 'Escuro' : 'Claro'}
     </button>
   )
 }
