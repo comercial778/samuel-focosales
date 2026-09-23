@@ -2,6 +2,7 @@ import type { Installment, PaymentMethod, Sale } from '#/lib/types'
 
 export const COMMISSION_RATES: Record<PaymentMethod, number> = {
   PIX: 0.09,
+  'Pix Parcelado': 0.06,
   Cartão: 0.06,
 }
 

@@ -15,7 +15,7 @@ import { InstallmentList } from '#/components/sales/installment-list'
 import { ReceiptButton } from '#/components/sales/receipt-button'
 import { MetricsGrid  } from '#/components/metrics-grid'
 import type {Metric} from '#/components/metrics-grid';
-import { computePeriodTotals, totalToReceive } from '#/lib/business/commission'
+import { computePeriodTotals, totalFutureOfCycle, totalToReceive } from '#/lib/business/commission'
 import { computeCycle, getCycleFirstPaymentDate, PRODUCTS, productLabel  } from '#/lib/business/products'
 import type {CycleStatus} from '#/lib/business/products';
 import { saleToInput } from '#/lib/business/sale-input'
@@ -82,6 +82,9 @@ function ComprovantesPage() {
   const period = { from: from || null, to: to || null }
   const totals = computePeriodTotals(filtered, period)
   const totalReceive = totalToReceive(settings.baseSalary, totals.commission)
+  const totalFuture = totalFutureOfCycle(settings.baseSalary, totals.commission, totals.pendingCommission)
+  const oportunidades = sales.filter((s) => s.isOpportunity)
+  const oportunidadesValor = oportunidades.reduce((sum, s) => sum + s.value, 0)
   const pendingCount = filtered.reduce(
     (sum, s) =>
       sum +
@@ -96,12 +99,18 @@ function ComprovantesPage() {
   )
 
   const metrics: Metric[] = [
-    { label: 'Valor Recebido', value: formatCurrency(totals.received), tone: 'positive' },
-    { label: 'Comissão', value: formatCurrency(totals.commission) },
+    { label: 'Total Vendas', value: formatCurrency(totals.contractedValue) },
+    { label: 'Recebido', value: formatCurrency(totals.received), tone: 'positive' },
+    { label: 'A Receber', value: formatCurrency(totals.pendingReceivable), tone: 'negative' },
+    { label: 'Comissão Recebida', value: formatCurrency(totals.commission), tone: 'positive' },
+    { label: 'Comissão a Receber', value: formatCurrency(totals.pendingCommission), tone: 'negative' },
     { label: 'Salário Base', value: formatCurrency(settings.baseSalary) },
     { label: 'Total a Receber', value: formatCurrency(totalReceive), tone: 'positive' },
+    { label: 'Total Futuro a Receber no Final do Ciclo', value: formatCurrency(totalFuture), tone: 'positive' },
+    { label: 'Vendas', value: String(totals.salesCount) },
+    { label: 'Valor de Oportunidades', value: formatCurrency(oportunidadesValor) },
+    { label: 'Oportunidades', value: String(oportunidades.length) },
     { label: 'Pagamentos a Receber', value: String(pendingCount) },
-    { label: 'Total que Falta Receber', value: formatCurrency(totals.pendingReceivable), tone: 'negative' },
   ]
 
   function handleExport() {

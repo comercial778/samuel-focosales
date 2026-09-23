@@ -29,7 +29,7 @@ const saleInputSchema = z.object({
   date: z.string(),
   leadName: z.string().min(1),
   phone: z.string().nullable(),
-  paymentMethod: z.enum(['PIX', 'Cartão']),
+  paymentMethod: z.enum(['PIX', 'Pix Parcelado', 'Cartão']),
   value: z.number().min(0),
   product: z.string().nullable(),
   leadSource: z.string().nullable(),

@@ -37,6 +37,10 @@ apontando para este projeto). Isso cria:
 - Triggers: criação automática de profile/role/settings no cadastro
   (`handle_new_user`), conversão automática de oportunidade → venda quando o
   pagamento é recebido, `updated_at` automático.
+
+Se o projeto já existia antes da forma de pagamento "Pix Parcelado" ser
+adicionada, rode também `supabase/migrations/0002_pix_parcelado.sql` no SQL
+Editor para liberar esse valor na coluna `payment_method`.
 - RLS: workspace compartilhado — qualquer usuário autenticado lê/escreve todos
   os dados (igual ao sistema original).
 - Bucket de Storage privado `receipts` para upload de comprovantes/contratos.
@@ -105,9 +109,9 @@ scripts/
 
 ## 7. Regras de negócio (resumo)
 
-- **Comissão:** PIX à vista 9%, Cartão 6%, calculada sobre as parcelas
-  **recebidas** dentro do período filtrado. Oportunidades nunca entram em
-  faturamento/comissão.
+- **Comissão:** PIX à vista 9%, Pix Parcelado 6%, Cartão 6%, calculada sobre
+  as parcelas **recebidas** dentro do período filtrado. Oportunidades nunca
+  entram em faturamento/comissão.
 - **Ciclo do produto:** início = data da primeira parcela com data (ou a data
   da venda, se nenhuma parcela tiver data); término = início + duração do
   produto (Gestão Mensal: 1 mês, Gestão 3/6: 3/6 meses, Mentoria 4 meses,

@@ -1,4 +1,4 @@
-export type PaymentMethod = 'PIX' | 'Cartão'
+export type PaymentMethod = 'PIX' | 'Pix Parcelado' | 'Cartão'
 
 export type LeadSource = 'trafego' | 'instagram' | 'will' | 'outro' | (string & {})
 

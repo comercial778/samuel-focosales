@@ -46,7 +46,7 @@ export interface Database {
           date: string
           lead_name: string
           phone: string | null
-          payment_method: 'PIX' | 'Cartão'
+          payment_method: 'PIX' | 'Pix Parcelado' | 'Cartão'
           value: number
           product: string | null
           lead_source: string | null
@@ -62,7 +62,7 @@ export interface Database {
           date: string
           lead_name: string
           phone?: string | null
-          payment_method: 'PIX' | 'Cartão'
+          payment_method: 'PIX' | 'Pix Parcelado' | 'Cartão'
           value: number
           product?: string | null
           lead_source?: string | null

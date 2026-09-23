@@ -55,19 +55,19 @@
   --card-foreground: oklch(0.96 0.008 150);
   --popover: oklch(0.19 0.02 155);
   --popover-foreground: oklch(0.96 0.008 150);
-  --primary: oklch(0.72 0.19 152);
-  --primary-foreground: oklch(0.12 0.03 155);
+  --primary: oklch(0.82 0.27 149);
+  --primary-foreground: oklch(0.1 0.03 155);
   --secondary: oklch(0.23 0.02 155);
   --secondary-foreground: oklch(0.96 0.008 150);
   --muted: oklch(0.22 0.018 155);
   --muted-foreground: oklch(0.68 0.03 150);
-  --accent: oklch(0.3 0.07 152);
-  --accent-foreground: oklch(0.92 0.09 150);
+  --accent: oklch(0.32 0.09 149);
+  --accent-foreground: oklch(0.94 0.14 149);
   --destructive: oklch(0.64 0.21 25.3);
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.29 0.025 155);
   --input: oklch(0.29 0.025 155);
-  --ring: oklch(0.72 0.19 152 / 0.5);
+  --ring: oklch(0.82 0.27 149 / 0.55);
   --chart-1: oklch(0.66 0.17 163);
   --chart-2: oklch(0.7 0.19 41);
   --chart-3: oklch(0.68 0.14 240);
@@ -138,12 +138,12 @@ body {
 }
 
 .dark body {
-  background-color: #07090a;
+  background-color: #050807;
   background-image:
-    radial-gradient(1100px 620px at -8% -12%, rgba(34, 197, 94, 0.22), transparent 60%),
-    radial-gradient(900px 560px at 108% -8%, rgba(16, 185, 129, 0.14), transparent 60%),
-    radial-gradient(700px 500px at 50% 118%, rgba(34, 197, 94, 0.1), transparent 65%),
-    linear-gradient(180deg, #0a0f0b 0%, #07090a 55%, #050605 100%);
+    radial-gradient(1100px 620px at -8% -12%, rgba(57, 255, 130, 0.24), transparent 60%),
+    radial-gradient(900px 560px at 108% -8%, rgba(16, 220, 130, 0.16), transparent 60%),
+    radial-gradient(700px 500px at 50% 118%, rgba(57, 255, 130, 0.12), transparent 65%),
+    linear-gradient(180deg, #071009 0%, #050807 55%, #030403 100%);
   background-attachment: fixed;
 }
 

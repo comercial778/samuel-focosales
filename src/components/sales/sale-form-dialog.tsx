@@ -223,14 +223,17 @@ export function SaleFormDialog({
               <Label>Forma de pagamento</Label>
               <Select
                 value={form.paymentMethod}
-                onValueChange={(v) => setForm((f) => ({ ...f, paymentMethod: v as 'PIX' | 'Cartão' }))}
+                onValueChange={(v) =>
+                  setForm((f) => ({ ...f, paymentMethod: v as 'PIX' | 'Pix Parcelado' | 'Cartão' }))
+                }
               >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="PIX">PIX</SelectItem>
-                  <SelectItem value="Cartão">Cartão</SelectItem>
+                  <SelectItem value="PIX">PIX à vista (9%)</SelectItem>
+                  <SelectItem value="Pix Parcelado">Pix Parcelado (6%)</SelectItem>
+                  <SelectItem value="Cartão">Cartão (6%)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
