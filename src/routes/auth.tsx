@@ -6,6 +6,7 @@ import { getMyContext } from '#/server/auth'
 import { getSupabaseBrowserClient } from '#/lib/supabase/client'
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
+import { PasswordInput } from '#/components/ui/password-input'
 import { Label } from '#/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '#/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '#/components/ui/tabs'
@@ -153,10 +154,9 @@ function AuthPage() {
                         Esqueci minha senha
                       </button>
                     </div>
-                    <Input
+                    <PasswordInput
                       id="login-password"
                       name="password"
-                      type="password"
                       required
                       autoComplete="current-password"
                     />
@@ -180,10 +180,9 @@ function AuthPage() {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <Label htmlFor="signup-password">Senha</Label>
-                  <Input
+                  <PasswordInput
                     id="signup-password"
                     name="password"
-                    type="password"
                     required
                     minLength={6}
                     autoComplete="new-password"

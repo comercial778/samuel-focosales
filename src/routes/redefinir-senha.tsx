@@ -4,7 +4,7 @@ import { TrendingUp } from 'lucide-react'
 import { toast } from 'sonner'
 import { getSupabaseBrowserClient } from '#/lib/supabase/client'
 import { Button } from '#/components/ui/button'
-import { Input } from '#/components/ui/input'
+import { PasswordInput } from '#/components/ui/password-input'
 import { Label } from '#/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '#/components/ui/card'
 
@@ -72,10 +72,9 @@ function ResetPasswordPage() {
             <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-1.5">
                 <Label htmlFor="password">Nova senha</Label>
-                <Input
+                <PasswordInput
                   id="password"
                   name="password"
-                  type="password"
                   required
                   minLength={6}
                   autoComplete="new-password"
@@ -83,10 +82,9 @@ function ResetPasswordPage() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <Label htmlFor="confirmPassword">Confirmar nova senha</Label>
-                <Input
+                <PasswordInput
                   id="confirmPassword"
                   name="confirmPassword"
-                  type="password"
                   required
                   minLength={6}
                   autoComplete="new-password"
